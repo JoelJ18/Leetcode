@@ -14,10 +14,11 @@ class Solution {
 vector<int> v={};
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-        if(root==nullptr){return v;}
-        v.push_back(root->val);
-        preorderTraversal(root->left);
-        preorderTraversal(root->right);
+        if(root!=nullptr){
+            v.push_back(root->val);
+            preorderTraversal(root->left);
+            preorderTraversal(root->right);
+        }
         return v;
     }
 };
