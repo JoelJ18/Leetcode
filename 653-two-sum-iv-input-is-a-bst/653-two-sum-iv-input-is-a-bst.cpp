@@ -11,19 +11,25 @@
  */
 class Solution {
 public:
-    unordered_map<int,int>mp;
-    bool search(TreeNode* x, int j){
-        if(x==nullptr){return false;}
-        if(mp.find(j-x->val)==mp.end()){
-            mp[x->val]=j-x->val;
-        }
-        else{return true;}
-        return(search(x->left,j)||search(x->right,j));
+    vector<int>v;
+   void search(TreeNode* x){
+       if(x!=nullptr){
+        search(x->left);
+        v.push_back(x->val);
+        search(x->right);
+       }
     }
     
 
     bool findTarget(TreeNode* root, int k) {
-        return search(root,k);
-        
+        search(root);
+        int x=0;
+        int r=v.size()-1;
+        while(x<r){
+            if(v[x]+v[r]==k){return true;}
+            else if(v[x]+v[r]>k){r--;}
+            else {x++;}
+        }
+        return false;
     }
 };
