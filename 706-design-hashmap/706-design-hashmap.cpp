@@ -1,26 +1,40 @@
 class MyHashMap {
 public:
-    int ans[1000001];
+    vector<pair<int,int>> m;
     MyHashMap() {
-        fill(ans,ans+1000001,-1);
+        
     }
     
     void put(int key, int value) {
         
-        ans[key]=value;
+        int flag=-1;
+        for(int i=0;i<m.size();i++){
+            if(m[i].first==key){flag=i;break;}}
+        
+        if(flag==-1){m.push_back({key,value});}
+        else{m[flag].second=value;}
+        m.shrink_to_fit();
         
         
     }
     
     int get(int key) {
-        return ans[key];
+        for(auto i:m){if(i.first==key){return i.second;}}
+        return -1;
     }
     
     void remove(int key) {
-        ans[key]=-1;
+        int count=0;
+        for(auto i:m){
+            if(i.first==key){
+                m.erase(m.begin()+count);
+            }
+            else{count++;}
         }
-    
+    }
 };
+    
+
 
 /**
  * Your MyHashMap object will be instantiated and called as such:
