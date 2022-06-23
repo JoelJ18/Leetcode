@@ -1,3 +1,10 @@
+static int fastIO = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::cout.tie(0);
+    return 0;
+}();
+
 class MyHashMap {
 public:
     int mp[1000001];
