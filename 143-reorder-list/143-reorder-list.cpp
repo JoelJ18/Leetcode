@@ -12,23 +12,34 @@ class Solution {
 public:
     void reorderList(ListNode* head) {
         
-        ListNode *left=head, *right=head->next;
+        ListNode *left=head, *right=head;
+        ListNode *mid, *n=nullptr;
         
-        while(right){
-            if(right->next==nullptr){
-                break;
-            }
-            else if(right->next->next==nullptr){
-                ListNode *temp=right->next,*t2=left->next;
-                left->next=temp;
-                temp->next=t2;
-                left=t2;
-                right->next=nullptr;
-                right=left->next;
-            }
-            else{
-                right=right->next;
-            }
+        while(right && right->next){
+            left=left->next;
+            right=right->next->next;
+        }
+        
+        mid=left->next;
+        left->next=nullptr;
+        
+        while(mid){
+            ListNode* temp=mid->next;
+            mid->next=n;
+            n=mid;
+            mid=temp;
+        }
+        
+        mid=n;
+        
+        while(head && mid){
+            ListNode *temp=head->next;
+            ListNode *temp2=mid->next;
+            head->next=mid;
+            mid->next=temp;
+            head=temp;
+            mid=temp2;
+            
         }
     }
 };
