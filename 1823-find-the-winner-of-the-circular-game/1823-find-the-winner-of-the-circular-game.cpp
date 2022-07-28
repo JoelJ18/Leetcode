@@ -7,7 +7,7 @@ public:
         for(int i=1;i<=n;i++){
             q.push(i);
         }
-        cout<<q.size();
+ 
         
         while(q.size()!=1){
             
