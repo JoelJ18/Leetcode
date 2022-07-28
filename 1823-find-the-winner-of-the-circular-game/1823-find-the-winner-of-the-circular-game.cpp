@@ -1,20 +1,21 @@
 class Solution {
 public:
-    int findTheWinner(int n, int k) {
-            queue<int> q;
-            //pushing the elements from 1 to k in a queue
-            for(int i=1;i<=n;i++){
-                q.push(i);
-            }
-            while(q.size()>1){
-                int temp=k;    
-                for(temp=k;temp>1;temp--){
-                    int first=q.front();
-                    q.pop();
-                    q.push(first);
-                }
-                q.pop();
-            }
-            return q.front();
+    int help(int n,int k)
+    {
+        if(n == 1)
+        {
+            return 0;
         }
+        else
+        {
+            int next = help(n-1,k);
+            int curr = (next+k)%n;
+            return curr;
+        }
+
+    }
+    int findTheWinner(int n, int k) {
+        int result = help(n,k);
+        return result+1;
+    }
 };
