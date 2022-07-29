@@ -12,22 +12,26 @@
 class Solution {
 public:
     
+    TreeNode* make(int prestart, int preend, int instart, int inend, vector<int>& preorder, vector<int>& inorder, map<int,int>& mp){
+        
+        if(prestart>preend || instart>inend){return nullptr;}
+        TreeNode* root = new TreeNode(preorder[prestart]);
+        int inindex = mp[root->val];
+        int left = inindex-instart;
+        
+        root->left=make(prestart+1,prestart+left,instart,inindex-1,preorder,inorder,mp);
+        root->right=make(prestart+left+1,preend,inindex+1,inend,preorder,inorder,mp);
+        
+        return root;
+    
+    }
+    
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         map<int,int> mp;
-        for(int i=0;i<preorder.size();i++){
+        for(int i=0;i<inorder.size();i++){
             mp[inorder[i]]=i;
         }
-        TreeNode* root = construct(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,mp);
-        return root;
-    }
-    TreeNode* construct(vector<int>&preorder, int preStart, int preEnd, vector<int> &inorder,int inStart, int inEnd, map<int,int> &mp){
-        if(preStart>preEnd || inStart>inEnd) return NULL;
-        TreeNode* root = new TreeNode(preorder[preStart]);
-        int inRoot = mp[root->val];
-        int numsLeft = inRoot-inStart;
         
-        root->left = construct(preorder,preStart+1,preStart+numsLeft,inorder,inStart,inRoot-1,mp);
-        root->right = construct(preorder,preStart+numsLeft+1,preEnd,inorder,inRoot+1,inEnd,mp);
-        return root;
+        return make(0,preorder.size()-1,0,inorder.size()-1,preorder,inorder,mp);
     }
 };
