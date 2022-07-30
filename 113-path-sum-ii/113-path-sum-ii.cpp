@@ -11,19 +11,25 @@
  */
 class Solution {
 public:
-    void find(TreeNode* root, vector<int> temp, vector<vector<int>> &ans, int sum){
-        if(root==nullptr){return;}
-        temp.push_back(root->val);
-        if(root->val==sum){if(root->right==nullptr && root->left==nullptr){ans.push_back(temp);}}
+    vector<vector<int>> ans;
+    void solve (TreeNode* root, int targetSum, vector<int> temp) {
+        if (root == NULL)
+            return;
+        if (root->left == NULL && root->right == NULL) {
+            if (targetSum == root->val) {
+                temp.push_back (root->val);
+                ans.push_back (temp);
+            }
+            return;
+        }
         
-        find(root->right,temp,ans,sum-root->val);
-        find(root->left,temp,ans,sum-root->val);
-        
+        temp.push_back (root->val);
+        solve (root->left, targetSum - root->val, temp);
+        solve (root->right, targetSum - root->val, temp);
     }
-    
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<vector<int>> ans;
-        find(root,{},ans,targetSum);
+        vector<int> temp;
+        solve (root, targetSum, temp);
         return ans;
     }
 };
