@@ -15,7 +15,7 @@ public:
     void find(TreeNode* root, vector<int> temp, int sum){
         if(root==nullptr){return;}
         temp.push_back(root->val);
-        if(root->val==sum && root->right==nullptr && root->left==nullptr){ans.push_back(temp);}
+        if(root->val==sum && root->right==nullptr && root->left==nullptr){ans.push_back(temp); return;}
         
         find(root->right,temp,sum-root->val);
         find(root->left,temp,sum-root->val);
