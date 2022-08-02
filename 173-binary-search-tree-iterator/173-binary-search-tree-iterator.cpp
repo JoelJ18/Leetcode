@@ -11,12 +11,12 @@
  */
 class BSTIterator {
 public:
-    vector<int>v={};
-    int it=-1;
+    queue<int>v={};
+
     void inorder(TreeNode* root){
         if(root!=nullptr){
             inorder(root->left);
-            v.push_back(root->val);
+            v.push(root->val);
             inorder(root->right);
         }
     }
@@ -26,14 +26,14 @@ public:
     }
     
     int next() {
-        it++;
-        return v[it];
+        int ans=v.front();
+        v.pop();
+        return ans;
     }
     
     bool hasNext() {
-        if(it==-1 && v.size()>0){return true;}
-        if(it>=v.size()-1){return false;}
-        else{return true;}
+        if(v.empty()){return false;}
+        else {return true;}
     }
 };
 
